@@ -1,1 +1,1 @@
-export { default as GoogleIcon } from './google.svg';
+export { default as ShopyIcon } from './shopy-icon.svg';
