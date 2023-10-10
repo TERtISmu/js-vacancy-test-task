@@ -7,6 +7,8 @@ import { ModalsProvider } from '@mantine/modals';
 import shipTheme from 'theme/ship-theme';
 import { globalStyles } from 'theme/globalStyles';
 
+import PageConfig from './PageConfig';
+
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
@@ -15,7 +17,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
     <MantineProvider theme={shipTheme} withGlobalStyles withNormalizeCSS>
       <ModalsProvider>
         <Global styles={globalStyles} />
-        <Component {...pageProps} />
+        <PageConfig>
+          <Component {...pageProps} />
+        </PageConfig>
       </ModalsProvider>
     </MantineProvider>
   </>
