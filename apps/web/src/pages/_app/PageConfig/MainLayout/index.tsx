@@ -8,7 +8,18 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => (
-  <AppShell header={<Header />}>{children}</AppShell>
+  <AppShell
+    header={<Header />}
+    styles={() => ({
+      main: {
+        paddingLeft: '0',
+        paddingRight: '0',
+        paddingBottom: '0',
+      },
+    })}
+  >
+    {children}
+  </AppShell>
 );
 
 export default MainLayout;
