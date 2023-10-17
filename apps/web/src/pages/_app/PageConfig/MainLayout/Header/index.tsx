@@ -28,7 +28,7 @@ const Header: FC = () => (
       </Group>
       <Group spacing={32} mr={16}>
         <Link
-          href="#"
+          href="/"
           style={{
             fontFamily: 'Inter',
             fontSize: '16px',
@@ -44,7 +44,7 @@ const Header: FC = () => (
           Marketplace
         </Link>
         <Link
-          href="#"
+          href="/your-products"
           style={{
             fontFamily: 'Inter',
             fontSize: '16px',

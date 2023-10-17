@@ -6,3 +6,5 @@ export { default as SortDirectionIcon } from './sort-direction-icon.svg';
 export { default as ArrowDownIcon } from './arrow-down.svg';
 export { default as CloseIcon } from './close-icon.svg';
 export { default as FilterCloseIcon } from './filter-close-icon.svg';
+export { default as TrashCanIcon } from './trash-can.svg';
+export { default as NewProductPlusIcon } from './new-product-plus.svg';
