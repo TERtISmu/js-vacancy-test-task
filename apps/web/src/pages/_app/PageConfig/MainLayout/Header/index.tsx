@@ -11,17 +11,26 @@ import Link from 'next/link';
 
 const Header: FC = () => (
   <LayoutHeader height="104px" ff="Inter" withBorder={false}>
-    <Group mt={32} mb={32} mx={48} style={{ justifyContent: 'space-between' }}>
-      <Group spacing={10}>
+    <Group
+      w={1345}
+      mt={32}
+      mb={32}
+      mx="auto"
+      style={{ justifyContent: 'space-between' }}
+    >
+      <Group spacing={6}>
         <Avatar>
           <ShopyIcon />
         </Avatar>
-        <Title order={2}>Shopy</Title>
+        <Title order={2} ff="Inter" style={{ fontSize: '29px' }}>
+          Shopy
+        </Title>
       </Group>
-      <Group spacing={32}>
+      <Group spacing={32} mr={16}>
         <Link
           href="#"
           style={{
+            fontFamily: 'Inter',
             fontSize: '16px',
             color: '#201F22',
             fontWeight: '500',
@@ -37,6 +46,7 @@ const Header: FC = () => (
         <Link
           href="#"
           style={{
+            fontFamily: 'Inter',
             fontSize: '16px',
             color: '#201F22',
             fontWeight: '500',
