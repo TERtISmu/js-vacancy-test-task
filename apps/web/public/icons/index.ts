@@ -8,3 +8,4 @@ export { default as CloseIcon } from './close-icon.svg';
 export { default as FilterCloseIcon } from './filter-close-icon.svg';
 export { default as TrashCanIcon } from './trash-can.svg';
 export { default as NewProductPlusIcon } from './new-product-plus.svg';
+export { default as UploadPhotoIcon } from './upload-photo-icon.svg';

@@ -8,6 +8,7 @@ import {
   Text,
   Center,
 } from '@mantine/core';
+import Link from 'next/link';
 
 import { YourProductCard } from 'components';
 import { NewProductPlusIcon } from 'public/icons';
@@ -25,14 +26,16 @@ const YourProducts: NextPage = () => (
         <UnstyledButton
           style={{ borderRadius: '12px', border: '1px solid #ECECEE' }}
         >
-          <Center>
-            <Stack align="center" spacing={12}>
-              <NewProductPlusIcon />
-              <Text c="#2B77EB" size={20} fw={400}>
-                New Product
-              </Text>
-            </Stack>
-          </Center>
+          <Link href="/create-new-product" style={{ textDecoration: 'none' }}>
+            <Center>
+              <Stack align="center" spacing={12}>
+                <NewProductPlusIcon />
+                <Text c="#2B77EB" size={20} fw={400}>
+                  New Product
+                </Text>
+              </Stack>
+            </Center>
+          </Link>
         </UnstyledButton>
         <YourProductCard
           imageSrc="images/DJI-Pocket-2-Creator-Combo.png"
