@@ -18,7 +18,7 @@ import logger from 'logger';
 import config from 'config';
 import { socketService } from 'services';
 import routes from 'routes';
-import ioEmitter from 'io-emitter';
+// import ioEmitter from 'io-emitter';
 import { AppKoa } from 'types';
 
 const initKoa = () => {
@@ -48,7 +48,7 @@ const app = initKoa();
   const server = http.createServer(app.callback());
 
   await Promise.all([
-    ioEmitter.initClient(),
+    // ioEmitter.initClient(),
     socketService(server),
   ]);
 
