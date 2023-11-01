@@ -7,11 +7,12 @@ import {
   Title,
   Text,
   Input,
-  Button,
   UnstyledButton,
   Pagination,
   Center,
   Container,
+  Select,
+  SelectItem,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import {
@@ -25,6 +26,17 @@ import {
 import { ProductCard } from 'components';
 import { productApi } from 'resources/product';
 import { useCallback, useLayoutEffect, useState } from 'react';
+
+const selectOptions: SelectItem[] = [
+  {
+    value: 'newest',
+    label: 'Sort by newest',
+  },
+  {
+    value: 'oldest',
+    label: 'Sort by oldest',
+  },
+];
 
 interface UsersListParams {
   page?: number;
@@ -48,6 +60,15 @@ const Home: NextPage = () => {
   const [activePage, setPage] = useState(1);
   const [params, setParams] = useState<UsersListParams>({});
   const [debouncedSearch] = useDebouncedValue(search, 500);
+  const [sortBy, setSortBy] = useState(selectOptions[0].value);
+
+  const handleSort = useCallback((value: string) => {
+    setSortBy(value);
+    setParams((prev) => ({
+      ...prev,
+      sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
+    }));
+  }, []);
 
   const handlePagination = useCallback((currentPage: any) => {
     setPage(currentPage);
@@ -184,28 +205,20 @@ const Home: NextPage = () => {
               <Text fw={700} ff="Inter">
                 12 results
               </Text>
-              <Button
-                h={21}
+              <Select
+                h={20}
+                w={140}
                 p={0}
-                leftIcon={<SortDirectionIcon />}
-                rightIcon={<ArrowDownIcon />}
-                bg="white"
-                c="#201F22"
                 style={{ fontFamily: 'Inter', fontSize: '14px' }}
-                styles={() => ({
-                  leftIcon: {
-                    marginRight: '6px',
-                  },
-                  rightIcon: {
-                    marginLeft: '7px',
-                  },
-                  '&:not([data-disabled])': {
-                    background: '#0A0A0A',
-                  },
-                })}
-              >
-                Sort by newest
-              </Button>
+                size="14px"
+                data={selectOptions}
+                value={sortBy}
+                onChange={handleSort}
+                variant="unstyled"
+                icon={<SortDirectionIcon />}
+                iconWidth={30}
+                rightSection={<ArrowDownIcon />}
+              />
             </Group>
             <UnstyledButton>
               <Group
