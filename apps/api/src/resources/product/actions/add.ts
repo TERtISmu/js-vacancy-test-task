@@ -18,19 +18,32 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { title, price } = ctx.validatedData;
 
-  const product = await productService.insertOne({
+  const isProductExists = await productService.exists({
     title,
     price,
     userId: user._id,
   });
 
-  analyticsService.track('New user created', {
-    title,
-    price,
-    userId: user._id,
-  });
+  if (isProductExists) {
+    await productService.atomic.updateOne(
+      { title, price, userId: user._id },
+      { $inc: { quantity: 1 } },
+    );
+  } else {
+    await productService.insertOne({
+      title,
+      price,
+      userId: user._id,
+    });
 
-  ctx.body = product;
+    analyticsService.track('New user created', {
+      title,
+      price,
+      userId: user._id,
+    });
+  }
+
+  ctx.body = {};
 }
 
 export default (router: AppRouter) => {
