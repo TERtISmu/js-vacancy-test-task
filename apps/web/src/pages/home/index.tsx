@@ -14,6 +14,8 @@ import {
   Select,
   SelectItem,
 } from '@mantine/core';
+import { IconX } from '@tabler/icons-react';
+
 import { useDebouncedValue } from '@mantine/hooks';
 import {
   ArrowDownIcon,
@@ -25,7 +27,7 @@ import {
 
 import { ProductCard } from 'components';
 import { productApi } from 'resources/product';
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react';
 
 const selectOptions: SelectItem[] = [
   {
@@ -56,7 +58,7 @@ interface UsersListParams {
 const PER_PAGE = 6;
 
 const Home: NextPage = () => {
-  const [search] = useState('');
+  const [search, setSearch] = useState('');
   const [activePage, setPage] = useState(1);
   const [params, setParams] = useState<UsersListParams>({});
   const [debouncedSearch] = useDebouncedValue(search, 500);
@@ -68,6 +70,10 @@ const Home: NextPage = () => {
       ...prev,
       sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
     }));
+  }, []);
+
+  const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
   }, []);
 
   const handlePagination = useCallback((currentPage: any) => {
@@ -187,6 +193,8 @@ const Home: NextPage = () => {
         <Stack spacing={20}>
           <Input
             icon={<SearchIcon />}
+            value={search}
+            onChange={handleSearch}
             placeholder="Type to search..."
             styles={(theme) => ({
               input: {
@@ -199,6 +207,16 @@ const Home: NextPage = () => {
                 fontSize: '14px',
               },
             })}
+            rightSection={
+              search ? (
+                <UnstyledButton
+                  onClick={() => setSearch('')}
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <IconX color="gray" />
+                </UnstyledButton>
+              ) : null
+            }
           />
           <Stack spacing={12}>
             <Group position="apart" spacing={0}>
