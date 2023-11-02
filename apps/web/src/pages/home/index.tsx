@@ -203,7 +203,7 @@ const Home: NextPage = () => {
           <Stack spacing={12}>
             <Group position="apart" spacing={0}>
               <Text fw={700} ff="Inter">
-                12 results
+                {`${data?.count} results`}
               </Text>
               <Select
                 h={20}
@@ -218,6 +218,12 @@ const Home: NextPage = () => {
                 icon={<SortDirectionIcon />}
                 iconWidth={30}
                 rightSection={<ArrowDownIcon />}
+                withinPortal={false}
+                transitionProps={{
+                  transition: 'pop-bottom-right',
+                  duration: 210,
+                  timingFunction: 'ease-out',
+                }}
               />
             </Group>
             <UnstyledButton>
