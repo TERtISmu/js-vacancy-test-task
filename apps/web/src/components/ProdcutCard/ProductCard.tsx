@@ -14,7 +14,7 @@ const ProductCard: FC<ProductCardProps> = ({
 }) => {
   console.log('hello');
   return (
-    <Card withBorder style={{ borderRadius: '12px' }} p={15}>
+    <Card h={376} withBorder style={{ borderRadius: '12px' }} p={15}>
       <Card.Section>
         <Image src={imageSrc} alt={productName} />
       </Card.Section>

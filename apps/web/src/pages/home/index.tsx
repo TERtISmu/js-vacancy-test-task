@@ -321,7 +321,7 @@ const Home: NextPage = () => {
               </Group>
             )}
           </Stack>
-          <SimpleGrid cols={3} spacing={20} verticalSpacing={20}>
+          <SimpleGrid h={771} cols={3} spacing={20} verticalSpacing={20}>
             {data?.items.length ? (
               data.items.map((product) => (
                 <ProductCard
