@@ -14,10 +14,10 @@ const schema = z.object({
     .default({ createdOn: 'desc' }),
   filter: z
     .object({
-      createdOn: z
+      price: z
         .object({
-          sinceDate: z.string(),
-          dueDate: z.string(),
+          minPrice: z.string(),
+          maxPrice: z.string(),
         })
         .nullable()
         .default(null),
@@ -43,17 +43,13 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     {
       $and: [
         {
-          $or: [
-            { title: { $regex: regExp } },
-            { price: { $regex: regExp } },
-            { createdOn: {} },
-          ],
+          $or: [{ title: { $regex: regExp } }, { createdOn: {} }],
         },
-        filter?.createdOn
+        filter?.price
           ? {
-            createdOn: {
-              $gte: new Date(filter.createdOn.sinceDate as string),
-              $lt: new Date(filter.createdOn.dueDate as string),
+            price: {
+              $gte: +filter.price.minPrice,
+              $lt: +filter.price.maxPrice,
             },
           }
           : {},

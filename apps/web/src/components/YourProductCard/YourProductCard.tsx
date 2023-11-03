@@ -14,7 +14,7 @@ import { TrashCanIcon } from 'public/icons';
 interface YourProductCardProps {
   imageSrc: string;
   productName: string;
-  productPrice: string;
+  productPrice: number;
   productStatus: string;
 }
 

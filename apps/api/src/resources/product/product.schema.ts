@@ -7,7 +7,7 @@ const schema = z
     _id: z.string(),
 
     title: z.string(),
-    price: z.string(),
+    price: z.number(),
     status: z.nativeEnum(ProductType).default(ProductType.ONSALE),
     quantity: z.number().nonnegative().default(1),
     userId: z.string(),

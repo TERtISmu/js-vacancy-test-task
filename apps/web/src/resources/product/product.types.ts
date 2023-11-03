@@ -10,7 +10,7 @@ export interface Product {
   lastRequest?: Date;
   deletedOn?: Date | null;
   title: string;
-  price: string;
+  price: number;
   status: ProductType;
   quantity: number;
   userId: string;

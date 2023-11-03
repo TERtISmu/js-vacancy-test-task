@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
-import { useDebouncedValue } from '@mantine/hooks';
+import { useDebouncedValue, useInputState } from '@mantine/hooks';
 import {
   ArrowDownIcon,
   SearchIcon,
@@ -48,9 +48,9 @@ interface UsersListParams {
     createdOn: 'asc' | 'desc';
   };
   filter?: {
-    createdOn?: {
-      sinceDate: Date | null;
-      dueDate: Date | null;
+    price?: {
+      minPrice: number | null;
+      maxPrice: number | null;
     };
   };
 }
@@ -63,6 +63,10 @@ const Home: NextPage = () => {
   const [params, setParams] = useState<UsersListParams>({});
   const [debouncedSearch] = useDebouncedValue(search, 500);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(Number.MAX_SAFE_INTEGER);
+  const [stringMinPrice, setStringMinPrice] = useInputState('');
+  const [stringMaxPrice, setStringMaxPrice] = useInputState('');
 
   const handleSort = useCallback((value: string) => {
     setSortBy(value);
@@ -84,6 +88,45 @@ const Home: NextPage = () => {
     }));
   }, []);
 
+  const handleMinPriceChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setStringMinPrice(value);
+      const newPrice = value === '' ? 0 : Number(value);
+      setMinPrice(newPrice);
+      setParams((prev) => ({
+        ...prev,
+        filter: { price: { minPrice: newPrice, maxPrice } },
+      }));
+    },
+    [setStringMinPrice, maxPrice],
+  );
+
+  const handleMaxPriceChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setStringMaxPrice(value);
+      const newPrice = value === '' ? Number.MAX_SAFE_INTEGER : Number(value);
+      setMaxPrice(newPrice);
+      setParams((prev) => ({
+        ...prev,
+        filter: { price: { minPrice, maxPrice: newPrice } },
+      }));
+    },
+    [setStringMaxPrice, minPrice],
+  );
+
+  const handleResetFilter = useCallback(() => {
+    setMinPrice(0);
+    setMaxPrice(Number.MAX_SAFE_INTEGER);
+    setParams((prev) => ({
+      ...prev,
+      filter: { price: { minPrice: 0, maxPrice: Number.MAX_SAFE_INTEGER } },
+    }));
+    setStringMinPrice('');
+    setStringMaxPrice('');
+  }, [setStringMaxPrice, setStringMinPrice]);
+
   useLayoutEffect(() => {
     setParams((prev) => ({
       ...prev,
@@ -92,6 +135,7 @@ const Home: NextPage = () => {
       perPage: PER_PAGE,
     }));
   }, [debouncedSearch]);
+
   const { data } = productApi.useList(params);
 
   return (
@@ -121,20 +165,26 @@ const Home: NextPage = () => {
             <Title order={3} size={20} fw={700} style={{ fontFamily: 'Inter' }}>
               Filters
             </Title>
-            <Group spacing={5}>
-              <Text
-                c="#A3A3A3"
-                fw={500}
-                style={{
-                  fontFamily: 'Inter',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                }}
-              >
-                Reset All
-              </Text>
-              <FilterCloseIcon />
-            </Group>
+            {(minPrice !== 0 || maxPrice !== Number.MAX_SAFE_INTEGER) && (
+              <Group spacing={5}>
+                <UnstyledButton onClick={handleResetFilter}>
+                  <Group spacing={2}>
+                    <Text
+                      c="#A3A3A3"
+                      fw={500}
+                      style={{
+                        fontFamily: 'Inter',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                      }}
+                    >
+                      Reset All
+                    </Text>
+                    <FilterCloseIcon />
+                  </Group>
+                </UnstyledButton>
+              </Group>
+            )}
           </Group>
           <Text
             style={{
@@ -148,46 +198,46 @@ const Home: NextPage = () => {
             Price
           </Text>
           <Group spacing={12}>
-            <Group
-              w={131}
-              spacing={4}
-              style={{
-                border: '1px #ECECEE solid',
-                borderRadius: '8px',
-                padding: '8px 12px',
-              }}
-            >
-              <Text
-                c="#A3A3A3"
-                fw={500}
-                style={{ fontFamily: 'Inter', fontSize: '14px' }}
-              >
-                From:
-              </Text>
-              <Text fw={500} style={{ fontSize: '14px', fontFamily: 'Inter' }}>
-                400$
-              </Text>
-            </Group>
-            <Group
-              w={131}
-              spacing={4}
-              style={{
-                border: '1px #ECECEE solid',
-                borderRadius: '8px',
-                padding: '8px 12px',
-              }}
-            >
-              <Text
-                c="#A3A3A3"
-                fw={500}
-                style={{ fontFamily: 'Inter', fontSize: '14px' }}
-              >
-                To:
-              </Text>
-              <Text fw={500} style={{ fontSize: '14px', fontFamily: 'Inter' }}>
-                1500$
-              </Text>
-            </Group>
+            <Input
+              placeholder="From:"
+              fw={500}
+              c="#A3A3A3"
+              styles={(theme) => ({
+                input: {
+                  width: '131px',
+                  '&:focus-within': {
+                    borderColor: theme.colors.blue[7],
+                  },
+                  border: '1px #ECECEE solid',
+                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  fontFamily: 'Inter',
+                  fontSize: '14px',
+                },
+              })}
+              value={stringMinPrice}
+              onChange={handleMinPriceChange}
+            />
+            <Input
+              placeholder="To:"
+              fw={500}
+              c="#A3A3A3"
+              styles={(theme) => ({
+                input: {
+                  width: '131px',
+                  '&:focus-within': {
+                    borderColor: theme.colors.blue[7],
+                  },
+                  border: '1px #ECECEE solid',
+                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  fontFamily: 'Inter',
+                  fontSize: '14px',
+                },
+              })}
+              value={stringMaxPrice}
+              onChange={handleMaxPriceChange}
+            />
           </Group>
         </Stack>
         <Stack spacing={20}>
@@ -244,27 +294,32 @@ const Home: NextPage = () => {
                 }}
               />
             </Group>
-            <UnstyledButton>
-              <Group
-                position="apart"
-                spacing={8}
-                w={150}
-                style={{
-                  border: '1px #ECECEE solid',
-                  borderRadius: '31px',
-                  padding: '6px 20px',
-                }}
-              >
-                <Text
-                  w={65.5}
-                  fw={500}
-                  style={{ fontSize: '14px', fontFamily: 'Inter' }}
+            {(minPrice !== 0 || maxPrice !== Number.MAX_SAFE_INTEGER) && (
+              <Group spacing={5}>
+                <UnstyledButton
+                  onClick={handleResetFilter}
+                  w={150}
+                  style={{
+                    border: '1px #ECECEE solid',
+                    borderRadius: '31px',
+                    padding: '6px 20px',
+                  }}
                 >
-                  $400-$1500
-                </Text>
-                <CloseIcon />
+                  <Group position="apart" spacing={8}>
+                    <Text
+                      w={65.5}
+                      fw={500}
+                      style={{ fontSize: '14px', fontFamily: 'Inter' }}
+                    >
+                      {`$${stringMinPrice === '' ? 0 : stringMinPrice}-${
+                        stringMaxPrice === '' ? '' : `$${stringMaxPrice}`
+                      }`}
+                    </Text>
+                    <CloseIcon />
+                  </Group>
+                </UnstyledButton>
               </Group>
-            </UnstyledButton>
+            )}
           </Stack>
           <SimpleGrid cols={3} spacing={20} verticalSpacing={20}>
             {data?.items.length ? (

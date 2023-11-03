@@ -4,7 +4,7 @@ import { FC } from 'react';
 interface ProductCardProps {
   imageSrc: string;
   productName: string;
-  productPrice: string;
+  productPrice: number;
 }
 
 const ProductCard: FC<ProductCardProps> = ({

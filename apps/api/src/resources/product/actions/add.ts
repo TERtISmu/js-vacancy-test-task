@@ -7,7 +7,9 @@ import { productService, Product } from 'resources/product';
 
 const schema = z.object({
   title: z.string().min(1, 'Please enter title').max(100),
-  price: z.string().min(1, 'Please enter price').max(100),
+  price: z.number({
+    required_error: 'Price is required',
+  }),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
