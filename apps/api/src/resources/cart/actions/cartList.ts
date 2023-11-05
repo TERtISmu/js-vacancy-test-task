@@ -4,7 +4,7 @@ async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
   ctx.body = {
-    purchasedProducts: user.purchasedProducts,
+    productsInCart: user.productsInCart,
   };
 }
 
