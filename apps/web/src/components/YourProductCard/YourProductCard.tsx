@@ -10,8 +10,10 @@ import {
 import { FC } from 'react';
 
 import { TrashCanIcon } from 'public/icons';
+import { productApi } from 'resources/product';
 
 interface YourProductCardProps {
+  id: string;
   imageSrc: string;
   productName: string;
   productPrice: number;
@@ -19,17 +21,25 @@ interface YourProductCardProps {
 }
 
 const YourProductCard: FC<YourProductCardProps> = ({
+  id,
   imageSrc,
   productName,
   productPrice,
   productStatus,
 }) => {
-  console.log('hello');
+  const { mutate: removeProduct } = productApi.useRemove(id);
+
+  const handlerProductRemove = async () => {
+    await removeProduct();
+    window.location.reload();
+  };
+
   return (
     <Card withBorder style={{ borderRadius: '12px' }} p={15}>
       <Card.Section>
         <BackgroundImage src={imageSrc} w={271} h={174}>
           <ActionIcon
+            onClick={handlerProductRemove}
             variant="light"
             radius={8}
             w={32}

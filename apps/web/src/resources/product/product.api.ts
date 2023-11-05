@@ -38,3 +38,13 @@ export function useAdd<T>() {
     },
   });
 }
+
+export function useRemove(id: string) {
+  const remove = () => apiService.delete(`/products/your/${id}`);
+
+  return useMutation<Product>(remove, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['product'], data);
+    },
+  });
+}

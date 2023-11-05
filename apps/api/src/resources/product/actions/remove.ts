@@ -22,7 +22,7 @@ async function validator(
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
-  await productService.deleteSoft({ _id: ctx.request.params.id });
+  await productService.deleteOne({ _id: ctx.request.params.id });
 
   ctx.body = {};
 }
