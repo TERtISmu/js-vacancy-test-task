@@ -9,9 +9,18 @@ import {
 import { CartIcon, LogoutIcon, ShopyIcon } from 'public/icons';
 import Link from 'next/link';
 import { accountApi } from 'resources/account';
+import { RoutePath } from 'routes';
+import { usePathname } from 'next/navigation';
+
+const navItems = [
+  { label: 'Marketplace', href: RoutePath.Home },
+  { label: 'Your Products', href: RoutePath.YourProducts },
+];
 
 const Header: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
+  const pathname = usePathname();
+
   return (
     <LayoutHeader height="104px" ff="Inter" withBorder={false}>
       <Group
@@ -30,38 +39,25 @@ const Header: FC = () => {
           </Title>
         </Group>
         <Group spacing={32} mr={16}>
-          <Link
-            href="/"
-            style={{
-              fontFamily: 'Inter',
-              fontSize: '16px',
-              color: '#201F22',
-              fontWeight: '500',
-              lineHeight: '32px',
-              textDecoration: 'none',
-              backgroundColor: '#ECECEE',
-              borderRadius: '20px',
-              padding: '2px 20px',
-            }}
-          >
-            Marketplace
-          </Link>
-          <Link
-            href="/your-products"
-            style={{
-              fontFamily: 'Inter',
-              fontSize: '16px',
-              color: '#201F22',
-              fontWeight: '500',
-              lineHeight: '32px',
-              textDecoration: 'none',
-              backgroundColor: '#ECECEE',
-              borderRadius: '20px',
-              padding: '2px 20px',
-            }}
-          >
-            Your Products
-          </Link>
+          {navItems.map((link) => (
+            <Link
+              href={link.href}
+              key={link.label}
+              style={{
+                fontFamily: 'Inter',
+                fontSize: '16px',
+                fontWeight: '500',
+                lineHeight: '32px',
+                textDecoration: 'none',
+                borderRadius: '20px',
+                padding: '2px 20px',
+                color: pathname === link.href ? '#201F22' : '#A3A3A3',
+                backgroundColor: pathname === link.href ? '#ECECEE' : '#FFFFFF',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </Group>
         <Group spacing={32}>
           <ActionIcon color="gray" variant="transparent" w={40} h={40}>
