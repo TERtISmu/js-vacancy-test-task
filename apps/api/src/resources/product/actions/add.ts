@@ -7,7 +7,7 @@ import { productService, Product } from 'resources/product';
 
 const schema = z.object({
   title: z.string().min(1, 'Please enter title').max(100),
-  price: z.number({
+  price: z.string({
     required_error: 'Price is required',
   }),
 });
@@ -20,27 +20,29 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { title, price } = ctx.validatedData;
 
+  const priceNumber = Number(price);
+
   const isProductExists = await productService.exists({
     title,
-    price,
+    price: priceNumber,
     userId: user._id,
   });
 
   if (isProductExists) {
     await productService.atomic.updateOne(
-      { title, price, userId: user._id },
+      { title, price: priceNumber, userId: user._id },
       { $inc: { quantity: 1 } },
     );
   } else {
     await productService.insertOne({
       title,
-      price,
+      price: priceNumber,
       userId: user._id,
     });
 
     analyticsService.track('New user created', {
       title,
-      price,
+      price: priceNumber,
       userId: user._id,
     });
   }

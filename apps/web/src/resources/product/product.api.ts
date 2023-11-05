@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query';
+import queryClient from 'query-client';
+import { useMutation, useQuery } from 'react-query';
 
 import { apiService } from 'services';
 
@@ -26,4 +27,14 @@ export function useYourList<T>(params: T) {
   }
 
   return useQuery<UserListResponse>(['products', params], list);
+}
+
+export function useAdd<T>() {
+  const add = (data: T) => apiService.post('/products/your', data);
+
+  return useMutation<Product, unknown, T>(add, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['product'], data);
+    },
+  });
 }
