@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { productService } from 'resources/product';
+import { ProductType } from 'resources/product/product.types';
 
 const schema = z.object({
   page: z.string().transform(Number).default('1'),
@@ -53,6 +54,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
             },
           }
           : {},
+        { status: ProductType.ONSALE },
       ],
     },
     { page, perPage },
