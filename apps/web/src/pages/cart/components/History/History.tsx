@@ -1,10 +1,10 @@
 import { Container, Divider, Group, Stack, Text } from '@mantine/core';
-import MyCartCard from 'components/MyCartCard/MyCartCard';
+import HistoryCard from 'components/HistoryCard/HistoryCard';
 import { FC } from 'react';
 import { cartApi } from 'resources/cart';
 
 const ProductCard: FC = () => {
-  const { data } = cartApi.useList();
+  const { data } = cartApi.useHistoryList();
 
   return (
     <Stack spacing={12}>
@@ -42,13 +42,13 @@ const ProductCard: FC = () => {
             fontWeight: '400',
           }}
         >
-          Quantity
+          Date
         </Text>
       </Group>
 
-      {data?.productsInCart?.length ? (
-        data?.productsInCart.map((product) => (
-          <MyCartCard productInfo={product} />
+      {data?.purchasedProducts?.length ? (
+        data?.purchasedProducts.map((product) => (
+          <HistoryCard productInfo={product} />
         ))
       ) : (
         <Container p={75}>

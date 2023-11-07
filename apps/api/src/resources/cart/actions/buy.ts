@@ -41,7 +41,12 @@ async function handler(ctx: AppKoaContext) {
   }
 
   const productInfo = user.productsInCart.map((prod) => {
-    return { id: prod.id, price: prod.price, purchaseDate: new Date() };
+    return {
+      id: prod.id,
+      title: prod.title,
+      price: prod.price,
+      purchaseDate: new Date(),
+    };
   });
 
   const updatedUser = userService.updateOne({ _id: user._id }, () => ({

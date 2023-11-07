@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 const pusrchasedProduct = z.object({
   id: z.string(),
+  title: z.string(),
   price: z.number(),
   purchaseDate: z.date(),
 });

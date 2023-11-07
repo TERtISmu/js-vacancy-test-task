@@ -10,7 +10,7 @@ import Summary from './components/Summary/Summary';
 const YourProducts: NextPage = () => {
   const [showProducts, setShowProducts] = useState('My cart');
   const { data } = cartApi.useList();
-  const totalPrice = data?.productsInCart.reduce((accumulator, product) => {
+  const totalPrice = data?.productsInCart?.reduce((accumulator, product) => {
     const price = product.price ?? 0;
     const quantity = product.quantityInCart ?? 0;
     return accumulator + price * quantity;

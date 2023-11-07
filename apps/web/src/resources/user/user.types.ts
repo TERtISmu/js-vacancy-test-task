@@ -25,6 +25,7 @@ export interface User {
 
 export interface PusrchasedProduct {
   id: string;
+  title: string;
   price: number;
   purchaseDate: Date;
 }
