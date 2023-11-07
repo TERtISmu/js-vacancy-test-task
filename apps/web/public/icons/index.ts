@@ -9,3 +9,6 @@ export { default as FilterCloseIcon } from './filter-close-icon.svg';
 export { default as TrashCanIcon } from './trash-can.svg';
 export { default as NewProductPlusIcon } from './new-product-plus.svg';
 export { default as UploadPhotoIcon } from './upload-photo-icon.svg';
+export { default as MinusIcon } from './minus.svg';
+export { default as PlusIcon } from './plus.svg';
+export { default as CrossRemoveIcon } from './cross-remove.svg';

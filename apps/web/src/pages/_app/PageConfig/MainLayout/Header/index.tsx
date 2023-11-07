@@ -10,7 +10,7 @@ import { CartIcon, LogoutIcon, ShopyIcon } from 'public/icons';
 import Link from 'next/link';
 import { accountApi } from 'resources/account';
 import { RoutePath } from 'routes';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const navItems = [
   { label: 'Marketplace', href: RoutePath.Home },
@@ -20,6 +20,7 @@ const navItems = [
 const Header: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <LayoutHeader height="104px" ff="Inter" withBorder={false}>
@@ -60,7 +61,15 @@ const Header: FC = () => {
           ))}
         </Group>
         <Group spacing={32}>
-          <ActionIcon color="gray" variant="transparent" w={40} h={40}>
+          <ActionIcon
+            onClick={() => {
+              router.push(RoutePath.Cart);
+            }}
+            color="gray"
+            variant="transparent"
+            w={40}
+            h={40}
+          >
             <CartIcon />
           </ActionIcon>
           <ActionIcon

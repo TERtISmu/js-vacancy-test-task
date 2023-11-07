@@ -1,10 +1,16 @@
 import { z } from 'zod';
-import { productSchema } from 'resources/product';
 
 const pusrchasedProduct = z.object({
   id: z.string(),
   price: z.number(),
   purchaseDate: z.date(),
+});
+
+const inCartProduct = z.object({
+  id: z.string(),
+  title: z.string(),
+  price: z.number(),
+  quantityInCart: z.number(),
 });
 
 const schema = z
@@ -26,7 +32,7 @@ const schema = z
       })
       .optional(),
     purchasedProducts: z.array(pusrchasedProduct).default([]),
-    productsInCart: z.array(productSchema).default([]),
+    productsInCart: z.array(inCartProduct).default([]),
 
     createdOn: z.date().optional(),
     updatedOn: z.date().optional(),

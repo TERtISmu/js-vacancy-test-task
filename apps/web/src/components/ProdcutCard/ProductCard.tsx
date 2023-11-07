@@ -1,22 +1,35 @@
 import { Button, Card, Group, Image, Stack, Text } from '@mantine/core';
 import { FC } from 'react';
+import { cartApi } from 'resources/cart';
+import { Product } from 'resources/product/product.types';
 
 interface ProductCardProps {
-  imageSrc: string;
-  productName: string;
-  productPrice: number;
+  productInfo: Product;
 }
 
-const ProductCard: FC<ProductCardProps> = ({
-  imageSrc,
-  productName,
-  productPrice,
-}) => {
-  console.log('hello');
+function omit(object: any, keys: string[]) {
+  const result: any = {};
+  Object.keys(object).forEach((key) => {
+    if (!keys.includes(key)) {
+      result[key] = object[key];
+    }
+  });
+  return result;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
+  const { title, price } = productInfo;
+
+  const { mutate: addToCart } = cartApi.useAddToCart();
+
+  const handlerAddToCart = async () => {
+    await addToCart(omit(productInfo, ['createdOn', 'updatedOn']));
+  };
+
   return (
     <Card h={376} withBorder style={{ borderRadius: '12px' }} p={15}>
       <Card.Section>
-        <Image src={imageSrc} alt={productName} />
+        <Image src="images/DJI-RS-3.png" alt={title} />
       </Card.Section>
 
       <Stack justify="flex-start" spacing={0} p={2}>
@@ -26,7 +39,7 @@ const ProductCard: FC<ProductCardProps> = ({
           style={{ fontSize: '20px', fontFamily: 'Inter' }}
           size="sm"
         >
-          {productName}
+          {title}
         </Text>
 
         <Group mt={8} position="apart">
@@ -44,12 +57,13 @@ const ProductCard: FC<ProductCardProps> = ({
             mr={2}
           >
             $
-            {productPrice}
+            {price}
           </Text>
         </Group>
 
         <Button
           type="submit"
+          onClick={handlerAddToCart}
           fullWidth
           mt={18}
           fw={400}

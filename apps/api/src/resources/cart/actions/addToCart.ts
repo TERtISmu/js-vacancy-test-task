@@ -14,8 +14,30 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const product = ctx.validatedData;
 
+  let updatedCart = user.productsInCart;
+
+  const isAlreadyInCart = user.productsInCart.find((prod) => prod.id === product._id);
+
+  if (isAlreadyInCart) {
+    updatedCart.forEach((prod) => {
+      if (prod.id === product._id) {
+        prod.quantityInCart += 1;
+      }
+    });
+  } else {
+    updatedCart = [
+      ...updatedCart,
+      {
+        id: product._id,
+        title: product.title,
+        price: product.price,
+        quantityInCart: 1,
+      },
+    ];
+  }
+
   const updatedUser = userService.updateOne({ _id: user._id }, () => ({
-    productsInCart: [...user.productsInCart, product],
+    productsInCart: updatedCart,
   }));
 
   ctx.body = updatedUser;

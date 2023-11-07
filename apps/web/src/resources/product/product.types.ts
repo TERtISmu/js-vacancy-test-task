@@ -14,5 +14,5 @@ export interface Product {
   status: ProductType;
   quantity: number;
   userId: string;
-  photoUrl: string;
+  photoUrl?: string;
 }

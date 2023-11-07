@@ -1,3 +1,5 @@
+import { Product } from 'resources/product/product.types';
+
 export interface User {
   _id: string;
   createdOn?: Date;
@@ -15,6 +17,21 @@ export interface User {
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
   oauth?: {
-    google: boolean
+    google: boolean;
   };
+  purchasedProducts?: PusrchasedProduct[];
+  productsInCar?: Product[];
+}
+
+export interface PusrchasedProduct {
+  id: string;
+  price: number;
+  purchaseDate: Date;
+}
+
+export interface InCartProduct {
+  id: string;
+  title: string;
+  price: number;
+  quantityInCart: number;
 }

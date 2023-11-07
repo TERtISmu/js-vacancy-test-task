@@ -323,13 +323,7 @@ const Home: NextPage = () => {
           </Stack>
           <SimpleGrid h={771} cols={3} spacing={20} verticalSpacing={20}>
             {data?.items.length ? (
-              data.items.map((product) => (
-                <ProductCard
-                  imageSrc="images/DJI-RS-3.png"
-                  productName={product.title}
-                  productPrice={product.price}
-                />
-              ))
+              data.items.map((product) => <ProductCard productInfo={product} />)
             ) : (
               <Container p={75}>
                 <Text size="xl" color="grey">
