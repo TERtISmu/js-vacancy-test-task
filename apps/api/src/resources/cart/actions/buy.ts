@@ -6,29 +6,42 @@ async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
   const userProductsIds = user.productsInCart.map((prod) => {
-    return prod._id;
+    return prod.id;
   });
 
   for (let i = 0; i < userProductsIds.length; i++) {
-    const product = await productService.findOne({ _id: userProductsIds[i] });
-    if (product?.quantity === 1) {
-      productService.atomic.updateOne(
-        { _id: product?._id },
-        {
-          $set: {
-            status: ProductType.SOLD,
-            lastRequest: new Date(),
+    const isProductExists = await productService.exists({
+      _id: userProductsIds[i],
+    });
+
+    if (isProductExists) {
+      const product = await productService.findOne({ _id: userProductsIds[i] });
+
+      if (product?.quantity === 1) {
+        productService.atomic.updateOne(
+          { _id: product?._id },
+          {
+            $set: {
+              status: ProductType.SOLD,
+              lastRequest: new Date(),
+            },
           },
-        },
-      );
-      await productService.decrementNumber(userProductsIds[i]);
-    } else {
-      await productService.decrementNumber(userProductsIds[i]);
+        );
+        await productService.decrementNumber(
+          userProductsIds[i],
+          user.productsInCart[i].quantityInCart,
+        );
+      } else {
+        await productService.decrementNumber(
+          userProductsIds[i],
+          user.productsInCart[i].quantityInCart,
+        );
+      }
     }
   }
 
   const productInfo = user.productsInCart.map((prod) => {
-    return { id: prod._id, price: prod.price, purchaseDate: new Date() };
+    return { id: prod.id, price: prod.price, purchaseDate: new Date() };
   });
 
   const updatedUser = userService.updateOne({ _id: user._id }, () => ({

@@ -1,18 +1,20 @@
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { Stack, Button, Group, Title, Divider, Text } from '@mantine/core';
+import { Stack, Button, Group } from '@mantine/core';
 import { useState } from 'react';
 import { cartApi } from 'resources/cart';
 import MyCart from './components/MyCart/MyCart';
 import History from './components/History/History';
+import Summary from './components/Summary/Summary';
 
 const YourProducts: NextPage = () => {
   const [showProducts, setShowProducts] = useState('My cart');
   const { data } = cartApi.useList();
-  const totalPrice = data?.productsInCart.reduce(
-    (accumulator, product) => accumulator + product.price,
-    0,
-  );
+  const totalPrice = data?.productsInCart.reduce((accumulator, product) => {
+    const price = product.price ?? 0;
+    const quantity = product.quantityInCart ?? 0;
+    return accumulator + price * quantity;
+  }, 0);
 
   return (
     <>
@@ -51,68 +53,9 @@ const YourProducts: NextPage = () => {
           </Group>
           {showProducts === 'My cart' ? <MyCart /> : <History />}
         </Stack>
-        <Stack
-          w={350}
-          p={20}
-          spacing={32}
-          style={{
-            border: '1px #ECECEE solid',
-            borderRadius: '12px',
-          }}
-        >
-          <Title
-            style={{
-              color: '#201F22',
-              fontFamily: 'Inter',
-              fontSize: '20px',
-              fontWeight: '700',
-            }}
-          >
-            Summary
-          </Title>
-          <Divider />
-          <Group position="apart">
-            <Text
-              style={{
-                color: '#767676',
-                fontFamily: 'Inter',
-                fontSize: '16px',
-                fontWeight: '400',
-              }}
-            >
-              Total price
-            </Text>
-            <Text
-              style={{
-                color: '#201F22',
-                fontFamily: 'Inter',
-                fontSize: '16px',
-                fontWeight: '700',
-              }}
-            >
-              $
-              {totalPrice}
-            </Text>
-          </Group>
-          <Button
-            type="submit"
-            fullWidth
-            fw={400}
-            h={40}
-            style={{
-              borderRadius: '8px',
-            }}
-            color="#2B77EB"
-          >
-            <Text
-              fw={500}
-              c="white"
-              style={{ fontSize: '14px', fontFamily: 'Inter' }}
-            >
-              Proceed to Ckeckout
-            </Text>
-          </Button>
-        </Stack>
+        {showProducts === 'My cart' && totalPrice !== 0 ? (
+          <Summary totalPrice={totalPrice} />
+        ) : null}
       </Group>
     </>
   );

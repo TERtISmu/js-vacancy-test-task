@@ -54,8 +54,12 @@ export function useHistoryList(options?: {}) {
   return useQuery<HistoryListResponse>(['cart'], historyList, options);
 }
 
-export function useBuy<T>() {
+export function useBuy() {
   const buy = () => apiService.post('/cart');
 
-  return useMutation<{}, unknown, T>(buy);
+  return useMutation(buy, {
+    onSuccess: () => {
+      queryClient.setQueryData(['cart'], null);
+    },
+  });
 }

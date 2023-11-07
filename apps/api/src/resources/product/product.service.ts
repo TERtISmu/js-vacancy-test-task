@@ -21,22 +21,11 @@ const updateLastRequest = (_id: string) => {
   );
 };
 
-// const decrementNumber = (ids: string[]) => {
-//   return service.atomic.updateOne(
-//     { _id: { $in: ids } },
-//     {
-//       $inc: { quantity: -1 },
-//       $set: {
-//         lastRequest: new Date(),
-//       },
-//     }
-//   );
-
-const decrementNumber = (id: string) => {
+const decrementNumber = (id: string, decrementBy: number) => {
   return service.atomic.updateOne(
     { _id: id },
     {
-      $inc: { quantity: -1 },
+      $inc: { quantity: -decrementBy },
       $set: {
         lastRequest: new Date(),
       },
