@@ -1,6 +1,6 @@
 import { Container, Divider, Group, Stack, Text } from '@mantine/core';
 import HistoryCard from 'components/HistoryCard/HistoryCard';
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { cartApi } from 'resources/cart';
 
 const ProductCard: FC = () => {
@@ -47,8 +47,11 @@ const ProductCard: FC = () => {
       </Group>
 
       {data?.purchasedProducts?.length ? (
-        data?.purchasedProducts.map((product) => (
-          <HistoryCard productInfo={product} />
+        data?.purchasedProducts.map((product, index) => (
+          <Fragment key={product.id}>
+            {index !== 0 && <Divider style={{ border: '1px #CFCFCF solid' }} />}
+            <HistoryCard productInfo={product} />
+          </Fragment>
         ))
       ) : (
         <Container p={75}>
@@ -57,8 +60,6 @@ const ProductCard: FC = () => {
           </Text>
         </Container>
       )}
-
-      <Divider style={{ border: '1px #CFCFCF solid' }} />
     </Stack>
   );
 };

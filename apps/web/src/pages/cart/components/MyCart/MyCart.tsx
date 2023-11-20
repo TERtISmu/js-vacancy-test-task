@@ -1,6 +1,6 @@
 import { Container, Divider, Group, Stack, Text } from '@mantine/core';
 import MyCartCard from 'components/MyCartCard/MyCartCard';
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { cartApi } from 'resources/cart';
 import NothingHereYet from '../NothingHereYet/NothingHereYet';
 
@@ -48,8 +48,11 @@ const ProductCard: FC = () => {
       </Group>
 
       {data?.productsInCart?.length ? (
-        data?.productsInCart.map((product) => (
-          <MyCartCard productInfo={product} />
+        data?.productsInCart.map((product, index) => (
+          <Fragment key={product.id}>
+            {index !== 0 && <Divider style={{ border: '1px #CFCFCF solid' }} />}
+            <MyCartCard productInfo={product} />
+          </Fragment>
         ))
       ) : (
         <Container p={75}>
@@ -58,8 +61,6 @@ const ProductCard: FC = () => {
           </Text>
         </Container>
       )}
-
-      <Divider style={{ border: '1px #CFCFCF solid' }} />
     </Stack>
   ) : (
     <NothingHereYet />
