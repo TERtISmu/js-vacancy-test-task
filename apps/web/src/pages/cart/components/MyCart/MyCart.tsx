@@ -2,11 +2,12 @@ import { Container, Divider, Group, Stack, Text } from '@mantine/core';
 import MyCartCard from 'components/MyCartCard/MyCartCard';
 import { FC } from 'react';
 import { cartApi } from 'resources/cart';
+import NothingHereYet from '../NothingHereYet/NothingHereYet';
 
 const ProductCard: FC = () => {
   const { data } = cartApi.useList();
 
-  return (
+  return data?.productsInCart?.length ? (
     <Stack spacing={12}>
       <Group spacing={0} style={{ padding: '12px 0' }}>
         <Text
@@ -60,6 +61,8 @@ const ProductCard: FC = () => {
 
       <Divider style={{ border: '1px #CFCFCF solid' }} />
     </Stack>
+  ) : (
+    <NothingHereYet />
   );
 };
 
