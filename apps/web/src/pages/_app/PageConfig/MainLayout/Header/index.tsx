@@ -1,16 +1,18 @@
-import { memo, FC } from 'react';
+import { memo, FC, useState, useEffect } from 'react';
 import {
   ActionIcon,
   Avatar,
   Group,
   Header as LayoutHeader,
+  Indicator,
   Title,
 } from '@mantine/core';
-import { CartIcon, LogoutIcon, ShopyIcon } from 'public/icons';
+import { ActiveCartIcon, CartIcon, LogoutIcon, ShopyIcon } from 'public/icons';
 import Link from 'next/link';
 import { accountApi } from 'resources/account';
 import { RoutePath } from 'routes';
 import { usePathname, useRouter } from 'next/navigation';
+import { cartApi } from 'resources/cart';
 
 const navItems = [
   { label: 'Marketplace', href: RoutePath.Home },
@@ -21,6 +23,16 @@ const Header: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
   const pathname = usePathname();
   const router = useRouter();
+
+  const { data } = cartApi.useList();
+
+  const [cartItemsCount, setCartItemsCount] = useState(
+    data?.productsInCart?.length || 0,
+  );
+
+  useEffect(() => {
+    setCartItemsCount(data?.productsInCart?.length || 0);
+  }, [data?.productsInCart]);
 
   return (
     <LayoutHeader height="104px" ff="Inter" withBorder={false}>
@@ -61,17 +73,35 @@ const Header: FC = () => {
           ))}
         </Group>
         <Group spacing={32}>
-          <ActionIcon
-            onClick={() => {
-              router.push(RoutePath.Cart);
-            }}
-            color="gray"
-            variant="transparent"
-            w={40}
-            h={40}
+          <Indicator
+            inline
+            label={cartItemsCount}
+            size={20}
+            styles={() => ({
+              indicator: {
+                fontFamily: 'Inter',
+                fontSize: '14px',
+                fontWeight: 500,
+                lineHeight: '23px',
+              },
+              common: {
+                top: '8px',
+                right: '8px',
+              },
+            })}
           >
-            <CartIcon />
-          </ActionIcon>
+            <ActionIcon
+              onClick={() => {
+                router.push(RoutePath.Cart);
+              }}
+              color="gray"
+              variant="transparent"
+              w={40}
+              h={40}
+            >
+              {pathname === RoutePath.Cart ? <ActiveCartIcon /> : <CartIcon />}
+            </ActionIcon>
+          </Indicator>
           <ActionIcon
             color="gray"
             variant="transparent"
