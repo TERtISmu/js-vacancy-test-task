@@ -11,22 +11,17 @@ import { FC } from 'react';
 
 import { TrashCanIcon } from 'public/icons';
 import { productApi } from 'resources/product';
+import { Product } from 'resources/product/product.types';
 
-interface YourProductCardProps {
-  id: string;
-  imageSrc: string;
-  productName: string;
-  productPrice: number;
-  productStatus: string;
+interface ProductCardProps {
+  productInfo: Product;
 }
 
-const YourProductCard: FC<YourProductCardProps> = ({
-  id,
-  imageSrc,
-  productName,
-  productPrice,
-  productStatus,
+const YourProductCard: FC<ProductCardProps> = ({
+  productInfo,
 }) => {
+  const { _id: id, title, price, status, photoUrl } = productInfo;
+
   const { mutate: removeProduct } = productApi.useRemove(id);
 
   const handlerProductRemove = async () => {
@@ -37,7 +32,7 @@ const YourProductCard: FC<YourProductCardProps> = ({
   return (
     <Card withBorder style={{ borderRadius: '12px' }} p={15}>
       <Card.Section>
-        <BackgroundImage src={imageSrc} w={271} h={174}>
+        <BackgroundImage src={photoUrl || 'images/DJI-RS-3.png'} w={271} h={174}>
           <ActionIcon
             onClick={handlerProductRemove}
             variant="light"
@@ -61,7 +56,7 @@ const YourProductCard: FC<YourProductCardProps> = ({
               right: '12px',
             }}
           >
-            {productStatus}
+            {status}
           </Badge>
         </BackgroundImage>
       </Card.Section>
@@ -73,7 +68,7 @@ const YourProductCard: FC<YourProductCardProps> = ({
           style={{ fontSize: '20px', fontFamily: 'Inter' }}
           size="sm"
         >
-          {productName}
+          {title}
         </Text>
 
         <Group mt={8} position="apart">
@@ -91,7 +86,7 @@ const YourProductCard: FC<YourProductCardProps> = ({
             mr={2}
           >
             $
-            {productPrice}
+            {price}
           </Text>
         </Group>
       </Stack>

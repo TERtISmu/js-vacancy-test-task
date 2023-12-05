@@ -1,6 +1,16 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import { NextPage } from 'next';
-import { Stack, Title, Group, Button, TextInput, Text } from '@mantine/core';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+import { Stack, Title, Group, Button, TextInput, Text, Box } from '@mantine/core';
 
 import { UploadPhotoIcon } from 'public/icons';
 import { z } from 'zod';
@@ -10,21 +20,32 @@ import { showNotification } from '@mantine/notifications';
 import { productApi } from 'resources/product';
 import { useQueryClient } from 'react-query';
 import { handleError } from 'utils';
+import { Dropzone, FileWithPath } from '@mantine/dropzone';
+import config from 'config';
+import { accountApi } from 'resources/account';
 
 const schema = z.object({
   title: z.string().min(1, 'Please enter product title').max(100),
   price: z.string().min(1, 'Please enter product title').max(100),
+  photoUrl: z.string().nullable().optional(),
 });
-
 type ProductParams = z.infer<typeof schema>;
 
 const CreateNewProduct: NextPage = () => {
   const queryClient = useQueryClient();
 
+  const [uploading, setUploading] = useState(false);
+  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [imageUploadError, setImageUploadError] = useState<boolean | string>(
+    false,
+  );
+
   const {
     register,
     handleSubmit,
     setError,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<ProductParams>({
     resolver: zodResolver(schema),
@@ -44,6 +65,77 @@ const CreateNewProduct: NextPage = () => {
     onError: (e) => handleError(e, setError),
   });
 
+  const firebaseConfig = {
+    apiKey: config.API_KEY,
+    authDomain: config.AUTH_DOMAIN,
+    projectId: config.PROJECT_ID,
+    storageBucket: config.STORAGE_BUCKET,
+    messagingSenderId: config.MESSAGING_SENDER_ID,
+    appId: config.APP_ID,
+    measurementId: config.MEASUREMENT_ID,
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const { data } = accountApi.useGet();
+
+  const storeImage = async (file: FileWithPath) => {
+    await signInWithEmailAndPassword(
+      auth,
+      config.FIREBASE_USER,
+      config.FIREBASE_AUTH,
+    );
+
+    return new Promise<string>((resolve, reject) => {
+      const storage = getStorage(app);
+      const fileName = `productImages/${data?._id}-${Date.now()}-${file.name}`;
+
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        },
+      );
+    });
+  };
+
+  const handleImageSubmit = () => {
+    if (files.length) {
+      setUploading(true);
+      setImageUploadError(false);
+
+      storeImage(files[0]).then((url) => {
+        register('photoUrl');
+        setValue('photoUrl', url);
+        setImageUploadError(false);
+        setUploading(false);
+      })
+        .catch(() => {
+          setImageUploadError('Image upload failed (2 mb max per image)');
+          setUploading(false);
+        });
+    } else {
+      setImageUploadError('You should upload at least one image');
+      setUploading(false);
+    }
+  };
+
+  const handlePhotoUpload = async ([imageFile]: FileWithPath[]) => {
+    setFiles([imageFile]);
+  };
+
   return (
     <>
       <Head>
@@ -55,8 +147,31 @@ const CreateNewProduct: NextPage = () => {
             Create new product
           </Title>
           <Group spacing={16}>
-            <UploadPhotoIcon />
+            <Dropzone
+              name="avatarUrl"
+              accept={['image/png', 'image/jpg', 'image/jpeg']}
+              onDrop={handlePhotoUpload}
+              p={0}
+              style={{ border: '0' }}
+            >
+              {getValues().photoUrl ? (
+                <Box w={180} h={180}>
+                  <img
+                    src={getValues()?.photoUrl || ''}
+                    alt={getValues().title}
+                    style={{
+                      width: '180px',
+                      height: '100%',
+                    }}
+                  />
+                </Box>
+              ) : (
+                <UploadPhotoIcon />
+              )}
+            </Dropzone>
             <Button
+              disabled={uploading}
+              onClick={handleImageSubmit}
               variant="default"
               p="4px 20px"
               c="#767676"
@@ -67,9 +182,12 @@ const CreateNewProduct: NextPage = () => {
                 fontSize: '14px',
               }}
             >
-              Upload Photo
+              {uploading ? 'Uploading...' : 'Upload Photo'}
             </Button>
           </Group>
+          <p className="text-red-700 text-sm">
+            {imageUploadError && imageUploadError}
+          </p>
           <TextInput
             {...register('title')}
             placeholder="Enter title of the product..."

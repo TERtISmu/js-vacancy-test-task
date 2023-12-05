@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Image, Text, UnstyledButton } from '@mantine/core';
+import { ActionIcon, Group, Text, UnstyledButton } from '@mantine/core';
 import { CrossRemoveIcon, MinusIcon, PlusIcon } from 'public/icons';
 import { FC, useState } from 'react';
 import { cartApi } from 'resources/cart';
@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
-  const { id, title, price, quantityInCart } = productInfo;
+  const { id, title, price, quantityInCart, photoUrl } = productInfo;
 
   const { mutate: removeFromCart } = cartApi.useRemoveFromCart();
   const { mutate: changeAmount } = cartApi.useChangeAmount();
@@ -46,13 +46,15 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
   return (
     <Group h={80} position="left" spacing={0}>
       <Group w={519} spacing={25}>
-        <Image
-          src="images/DJI-RS-3.png"
-          alt={title}
-          height={80}
-          width={80}
-          fit="fill"
-          radius={8}
+        <img
+          src={photoUrl || 'images/DJI-RS-3.png'}
+          alt={title || 'DJI-RS-3.png'}
+          style={{
+            width: '80px',
+            height: '80px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+          }}
         />
         <Text
           style={{

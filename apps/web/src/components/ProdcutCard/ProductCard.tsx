@@ -1,4 +1,4 @@
-import { Button, Card, Group, Image, Stack, Text } from '@mantine/core';
+import { Button, Card, Group, Stack, Text } from '@mantine/core';
 import { FC } from 'react';
 import { cartApi } from 'resources/cart';
 import { Product } from 'resources/product/product.types';
@@ -18,7 +18,7 @@ function omit(object: any, keys: string[]) {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
-  const { title, price } = productInfo;
+  const { title, price, photoUrl } = productInfo;
 
   const { mutate: addToCart } = cartApi.useAddToCart();
 
@@ -31,7 +31,15 @@ const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
   return (
     <Card h={376} withBorder style={{ borderRadius: '12px' }} p={15}>
       <Card.Section>
-        <Image src="images/DJI-RS-3.png" alt={title} />
+        <img
+          src={photoUrl || 'images/DJI-RS-3.png'}
+          alt={title || 'DJI-RS-3.png'}
+          style={{
+            width: '320px',
+            height: '219px',
+            objectFit: 'cover',
+          }}
+        />
       </Card.Section>
 
       <Stack justify="flex-start" spacing={0} p={2}>

@@ -28,6 +28,7 @@ export interface PusrchasedProduct {
   title: string;
   price: number;
   purchaseDate: Date;
+  photoUrl: string;
 }
 
 export interface InCartProduct {
@@ -35,4 +36,5 @@ export interface InCartProduct {
   title: string;
   price: number;
   quantityInCart: number;
+  photoUrl: string;
 }

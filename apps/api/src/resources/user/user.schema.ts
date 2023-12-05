@@ -12,6 +12,7 @@ const inCartProduct = z.object({
   title: z.string(),
   price: z.number(),
   quantityInCart: z.number(),
+  photoUrl: z.string().optional(),
 });
 
 const schema = z

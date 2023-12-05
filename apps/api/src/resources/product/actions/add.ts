@@ -10,6 +10,7 @@ const schema = z.object({
   price: z.string({
     required_error: 'Price is required',
   }),
+  photoUrl: z.string().nullable().optional(),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
@@ -18,7 +19,7 @@ interface ValidatedData extends z.infer<typeof schema> {
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
-  const { title, price } = ctx.validatedData;
+  const { title, price, photoUrl } = ctx.validatedData;
 
   const priceNumber = Number(price);
 
@@ -37,12 +38,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     await productService.insertOne({
       title,
       price: priceNumber,
+      photoUrl,
       userId: user._id,
     });
 
-    analyticsService.track('New user created', {
+    analyticsService.track('New product created', {
       title,
       price: priceNumber,
+      photoUrl,
       userId: user._id,
     });
   }

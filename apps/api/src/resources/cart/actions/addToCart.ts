@@ -32,6 +32,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
         title: product.title,
         price: product.price,
         quantityInCart: 1,
+        photoUrl: product.photoUrl || '',
       },
     ];
   }

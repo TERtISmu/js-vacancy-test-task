@@ -44,13 +44,7 @@ const YourProducts: NextPage = () => {
           </UnstyledButton>
           {data?.items?.length ? (
             data.items.map((product) => (
-              <YourProductCard
-                id={product._id}
-                imageSrc="images/DJI-RS-3.png"
-                productName={product.title}
-                productPrice={product.price}
-                productStatus={product.status}
-              />
+              <YourProductCard productInfo={product} />
             ))
           ) : (
             <Container p={75}>
