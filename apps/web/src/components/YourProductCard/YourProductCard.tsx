@@ -11,7 +11,7 @@ import { FC } from 'react';
 
 import { TrashCanIcon } from 'public/icons';
 import { productApi } from 'resources/product';
-import { Product } from 'resources/product/product.types';
+import { Product, ProductType } from 'resources/product/product.types';
 
 interface ProductCardProps {
   productInfo: Product;
@@ -53,6 +53,8 @@ const YourProductCard: FC<ProductCardProps> = ({
               position: 'absolute',
               bottom: '106px',
               right: '12px',
+              color: status === ProductType.SOLD ? '#17B26A' : '#F79009',
+              backgroundColor: status === ProductType.SOLD ? '#E8F7F0' : '#FEF4E6',
             }}
           >
             {status}

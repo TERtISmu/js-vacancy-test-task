@@ -1,4 +1,4 @@
-enum ProductType {
+export enum ProductType {
   SOLD = 'sold',
   ONSALE = 'onsale',
 }
