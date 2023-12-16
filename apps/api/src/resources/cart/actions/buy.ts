@@ -45,6 +45,7 @@ async function handler(ctx: AppKoaContext) {
       id: prod.id,
       title: prod.title,
       price: prod.price,
+      photoUrl: prod.photoUrl,
       purchaseDate: new Date(),
     };
   });

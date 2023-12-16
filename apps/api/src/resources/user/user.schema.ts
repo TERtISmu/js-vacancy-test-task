@@ -5,6 +5,7 @@ const pusrchasedProduct = z.object({
   title: z.string(),
   price: z.number(),
   purchaseDate: z.date(),
+  photoUrl: z.string().optional(),
 });
 
 const inCartProduct = z.object({
