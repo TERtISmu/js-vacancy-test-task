@@ -14,3 +14,4 @@ export { default as MinusIcon } from './minus.svg';
 export { default as PlusIcon } from './plus.svg';
 export { default as CrossRemoveIcon } from './cross-remove.svg';
 export { default as BalloonIcon } from './balloon.svg';
+export { default as CheckCircleIcon } from './check-circle.svg';
