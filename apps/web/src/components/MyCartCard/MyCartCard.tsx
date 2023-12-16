@@ -17,12 +17,11 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
   const [amount, setAmount] = useState(quantityInCart);
 
   const handlerRemoveFromCart = async () => {
-    await removeFromCart({ productId: id });
-    window.location.reload();
+    removeFromCart({ productId: id });
   };
 
   const handlerDecreaseAmount = async () => {
-    await changeAmount(
+    changeAmount(
       { productId: id, operation: 'dec' },
       {
         onSuccess: (response: any) => {
@@ -33,7 +32,7 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
   };
 
   const handlerIncreaseAmount = async () => {
-    await changeAmount(
+    changeAmount(
       { productId: id, operation: 'inc' },
       {
         onSuccess: (response: any) => {

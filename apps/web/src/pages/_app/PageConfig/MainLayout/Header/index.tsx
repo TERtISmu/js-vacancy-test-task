@@ -1,4 +1,4 @@
-import { memo, FC, useState, useEffect } from 'react';
+import { memo, FC } from 'react';
 import {
   ActionIcon,
   Avatar,
@@ -24,15 +24,9 @@ const Header: FC = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { data } = cartApi.useList();
+  const { data, isSuccess } = cartApi.useList();
 
-  const [cartItemsCount, setCartItemsCount] = useState(
-    data?.productsInCart?.length || 0,
-  );
-
-  useEffect(() => {
-    setCartItemsCount(data?.productsInCart?.length || 0);
-  }, [data?.productsInCart]);
+  const cartNumber = isSuccess && data?.productsInCart.length;
 
   return (
     <LayoutHeader height="104px" ff="Inter" withBorder={false}>
@@ -73,9 +67,11 @@ const Header: FC = () => {
           ))}
         </Group>
         <Group spacing={32}>
+          {isSuccess
+          && (
           <Indicator
             inline
-            label={cartItemsCount}
+            label={cartNumber}
             size={20}
             styles={() => ({
               indicator: {
@@ -102,6 +98,7 @@ const Header: FC = () => {
               {pathname === RoutePath.Cart ? <ActiveCartIcon /> : <CartIcon />}
             </ActionIcon>
           </Indicator>
+          )}
           <ActionIcon
             color="gray"
             variant="transparent"

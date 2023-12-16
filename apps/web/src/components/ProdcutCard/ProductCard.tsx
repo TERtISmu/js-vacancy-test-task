@@ -23,7 +23,7 @@ const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
   const { mutate: addToCart } = cartApi.useAddToCart();
 
   const handlerAddToCart = async () => {
-    await addToCart(
+    addToCart(
       omit(productInfo, ['createdOn', 'updatedOn', 'lastRequest']),
     );
   };

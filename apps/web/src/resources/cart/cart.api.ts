@@ -12,7 +12,7 @@ export function useList() {
     productsInCart: InCartProduct[];
   }
 
-  return useQuery<CartListResponse>(['cart'], list);
+  return useQuery<CartListResponse>(['cart', 'list'], list);
 }
 
 export function useAddToCart<T>() {
@@ -20,7 +20,8 @@ export function useAddToCart<T>() {
 
   return useMutation<{}, unknown, T>(addToCart, {
     onSuccess: (data) => {
-      queryClient.setQueryData(['product'], data);
+      queryClient.setQueryData(['cart'], data);
+      queryClient.invalidateQueries({ queryKey: ['cart', 'list'] });
     },
   });
 }
@@ -30,7 +31,8 @@ export function useRemoveFromCart<T>() {
 
   return useMutation<{}, unknown, T>(removeFromCart, {
     onSuccess: (data) => {
-      queryClient.setQueryData(['product'], data);
+      queryClient.setQueryData(['cart'], data);
+      queryClient.invalidateQueries({ queryKey: ['cart', 'list'] });
     },
   });
 }

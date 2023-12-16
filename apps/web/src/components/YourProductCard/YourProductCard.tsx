@@ -25,8 +25,7 @@ const YourProductCard: FC<ProductCardProps> = ({
   const { mutate: removeProduct } = productApi.useRemove(id);
 
   const handlerProductRemove = async () => {
-    await removeProduct();
-    window.location.reload();
+    removeProduct();
   };
 
   return (

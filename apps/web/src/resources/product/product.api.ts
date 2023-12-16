@@ -26,25 +26,21 @@ export function useYourList<T>(params: T) {
     totalPages: number;
   }
 
-  return useQuery<UserListResponse>(['products', params], list);
+  return useQuery<UserListResponse>(['products', 'your', params], list);
 }
 
 export function useAdd<T>() {
   const add = (data: T) => apiService.post('/products/your', data);
 
-  return useMutation<Product, unknown, T>(add, {
-    onSuccess: (data) => {
-      queryClient.setQueryData(['product'], data);
-    },
-  });
+  return useMutation<Product, unknown, T>(add);
 }
 
 export function useRemove(id: string) {
   const remove = () => apiService.delete(`/products/your/${id}`);
 
   return useMutation<Product>(remove, {
-    onSuccess: (data) => {
-      queryClient.setQueryData(['product'], data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products', 'your'] });
     },
   });
 }

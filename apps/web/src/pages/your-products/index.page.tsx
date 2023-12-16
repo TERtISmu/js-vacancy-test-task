@@ -16,7 +16,7 @@ import { NewProductPlusIcon } from 'public/icons';
 import { productApi } from 'resources/product';
 
 const YourProducts: NextPage = () => {
-  const { data } = productApi.useYourList({});
+  const { data, isSuccess } = productApi.useYourList({});
 
   return (
     <>
@@ -42,8 +42,8 @@ const YourProducts: NextPage = () => {
               </Center>
             </Link>
           </UnstyledButton>
-          {data?.items?.length ? (
-            data.items.map((product) => (
+          {isSuccess && data.items.length ? (
+            data?.items?.map((product) => (
               <YourProductCard productInfo={product} />
             ))
           ) : (
