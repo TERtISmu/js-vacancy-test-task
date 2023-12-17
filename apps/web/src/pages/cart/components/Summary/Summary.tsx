@@ -26,6 +26,7 @@ const Summary: FC<SummaryProps> = ({ totalPrice }) => {
       style={{
         border: '1px #ECECEE solid',
         borderRadius: '12px',
+        backgroundColor: '#FFFFFF',
       }}
     >
       <Title

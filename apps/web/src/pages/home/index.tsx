@@ -159,6 +159,7 @@ const Home: NextPage = () => {
           style={{
             border: '1px #ECECEE solid',
             borderRadius: '12px',
+            backgroundColor: '#FFFFFF',
           }}
         >
           <Group spacing="auto" position="apart">
@@ -303,6 +304,7 @@ const Home: NextPage = () => {
                     border: '1px #ECECEE solid',
                     borderRadius: '31px',
                     padding: '6px 20px',
+                    backgroundColor: '#FFFFFF',
                   }}
                 >
                   <Group position="apart" spacing={8}>

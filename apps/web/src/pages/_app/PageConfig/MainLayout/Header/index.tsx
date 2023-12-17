@@ -29,7 +29,7 @@ const Header: FC = () => {
   const cartNumber = isSuccess && data?.productsInCart.length;
 
   return (
-    <LayoutHeader height="104px" ff="Inter" withBorder={false}>
+    <LayoutHeader height="104px" ff="Inter" withBorder={false} bg="#FCFCFC">
       <Group
         w={1345}
         mt={32}
@@ -59,7 +59,7 @@ const Header: FC = () => {
                 borderRadius: '20px',
                 padding: '2px 20px',
                 color: pathname === link.href ? '#201F22' : '#A3A3A3',
-                backgroundColor: pathname === link.href ? '#ECECEE' : '#FFFFFF',
+                backgroundColor: pathname === link.href ? '#ECECEE' : '#FCFCFC',
               }}
             >
               {link.label}

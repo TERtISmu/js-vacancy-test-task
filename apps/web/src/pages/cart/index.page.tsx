@@ -32,7 +32,7 @@ const YourProducts: NextPage = () => {
                 fontWeight: '600',
                 padding: '0',
                 color: showProducts === 'My cart' ? '#201F22' : '#A3A3A3',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: '#FCFCFC',
               }}
             >
               My cart
@@ -45,7 +45,7 @@ const YourProducts: NextPage = () => {
                 fontWeight: '600',
                 padding: '0',
                 color: showProducts === 'History' ? '#201F22' : '#A3A3A3',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: '#FCFCFC',
               }}
             >
               History
