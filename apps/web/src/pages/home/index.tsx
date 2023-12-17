@@ -163,7 +163,7 @@ const Home: NextPage = () => {
           }}
         >
           <Group spacing="auto" position="apart">
-            <Title order={3} size={20} fw={700} style={{ fontFamily: 'Inter' }}>
+            <Title order={3} size={20} fw={700}>
               Filters
             </Title>
             {(minPrice !== 0 || maxPrice !== Number.MAX_SAFE_INTEGER) && (
@@ -173,11 +173,8 @@ const Home: NextPage = () => {
                     <Text
                       c="#A3A3A3"
                       fw={500}
-                      style={{
-                        fontFamily: 'Inter',
-                        fontSize: '14px',
-                        lineHeight: '20px',
-                      }}
+                      size={14}
+                      lh="20px"
                     >
                       Reset All
                     </Text>
@@ -188,13 +185,10 @@ const Home: NextPage = () => {
             )}
           </Group>
           <Text
-            style={{
-              fontWeight: '700',
-              fontSize: '16px',
-              marginTop: '28px',
-              marginBottom: '8px',
-              fontFamily: 'Inter',
-            }}
+            fw={700}
+            size={16}
+            mt={28}
+            mb={8}
           >
             Price
           </Text>
@@ -212,7 +206,6 @@ const Home: NextPage = () => {
                   border: '1px #ECECEE solid',
                   borderRadius: '8px',
                   padding: '8px 12px',
-                  fontFamily: 'Inter',
                   fontSize: '14px',
                 },
               })}
@@ -232,7 +225,6 @@ const Home: NextPage = () => {
                   border: '1px #ECECEE solid',
                   borderRadius: '8px',
                   padding: '8px 12px',
-                  fontFamily: 'Inter',
                   fontSize: '14px',
                 },
               })}
@@ -254,7 +246,6 @@ const Home: NextPage = () => {
                 '&:focus-within': {
                   borderColor: theme.colors.blue[7],
                 },
-                fontFamily: 'Inter',
                 fontSize: '14px',
               },
             })}
@@ -271,14 +262,13 @@ const Home: NextPage = () => {
           />
           <Stack spacing={12}>
             <Group position="apart" spacing={0}>
-              <Text fw={700} ff="Inter">
+              <Text fw={700}>
                 {`${data?.count} results`}
               </Text>
               <Select
                 h={20}
-                w={140}
+                w={150}
                 p={0}
-                style={{ fontFamily: 'Inter', fontSize: '14px' }}
                 size="14px"
                 data={selectOptions}
                 value={sortBy}
@@ -311,7 +301,7 @@ const Home: NextPage = () => {
                     <Text
                       w={65.5}
                       fw={500}
-                      style={{ fontSize: '14px', fontFamily: 'Inter' }}
+                      size={14}
                     >
                       {`$${stringMinPrice === '' ? 0 : stringMinPrice}-${
                         stringMaxPrice === '' ? '' : `$${stringMaxPrice}`

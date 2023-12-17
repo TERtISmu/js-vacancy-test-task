@@ -12,36 +12,27 @@ const ProductCard: FC = () => {
       <Group spacing={0} style={{ padding: '12px 0' }}>
         <Text
           w={519}
-          style={{
-            color: '#767676',
-            fontSize: '16px',
-            fontFamily: 'Inter',
-            fontWeight: '400',
-          }}
+          size={16}
+          fw={400}
+          c="#767676"
         >
           Item
         </Text>
         <Text
           w={144}
           ta="right"
-          style={{
-            color: '#767676',
-            fontSize: '16px',
-            fontFamily: 'Inter',
-            fontWeight: '400',
-          }}
+          size={16}
+          fw={400}
+          c="#767676"
         >
           Unit Price
         </Text>
         <Text
           w={144}
           ta="right"
-          style={{
-            color: '#767676',
-            fontSize: '16px',
-            fontFamily: 'Inter',
-            fontWeight: '400',
-          }}
+          size={16}
+          fw={400}
+          c="#767676"
         >
           Quantity
         </Text>

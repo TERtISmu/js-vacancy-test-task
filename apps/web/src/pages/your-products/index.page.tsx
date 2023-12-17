@@ -24,7 +24,7 @@ const YourProducts: NextPage = () => {
         <title>Your Products</title>
       </Head>
       <Stack w={1345} m="auto" spacing={20}>
-        <Title c="#201F22" ff="Inter" fw={600} size="20px">
+        <Title c="#201F22" fw={600} size="20px">
           Your Products
         </Title>
         <SimpleGrid w={1144} cols={4} spacing={20} verticalSpacing={20}>

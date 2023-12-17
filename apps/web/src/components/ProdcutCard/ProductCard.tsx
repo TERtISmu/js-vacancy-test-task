@@ -46,8 +46,7 @@ const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
         <Text
           mt={12}
           fw={700}
-          style={{ fontSize: '20px', fontFamily: 'Inter' }}
-          size="sm"
+          size={20}
         >
           {title}
         </Text>
@@ -56,14 +55,14 @@ const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
           <Text
             fw={500}
             c="#A3A3A3"
-            style={{ fontSize: '14px', fontFamily: 'Inter' }}
+            size={14}
           >
             Price:
           </Text>
           <Text
             c="#201F22"
             fw={700}
-            style={{ fontSize: '20px', fontFamily: 'Inter' }}
+            size={20}
             mr={2}
           >
             $
@@ -85,8 +84,8 @@ const ProductCard: FC<ProductCardProps> = ({ productInfo }) => {
         >
           <Text
             fw={500}
-            c="white"
-            style={{ fontSize: '14px', fontFamily: 'Inter' }}
+            c="#FFFFFF"
+            size={14}
           >
             Add to Cart
           </Text>

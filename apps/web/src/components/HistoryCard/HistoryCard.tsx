@@ -31,12 +31,9 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
           }}
         />
         <Text
-          style={{
-            color: '#201F22',
-            fontSize: '16px',
-            fontFamily: 'Inter',
-            fontWeight: '700',
-          }}
+          fw={700}
+          size={16}
+          color="#201F22"
         >
           {title}
         </Text>
@@ -44,7 +41,8 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
       <Text
         w={144}
         ta="right"
-        style={{ fontFamily: 'Inter', fontWeight: '400', fontSize: '16px' }}
+        fw={400}
+        size={16}
       >
         $
         {price}
@@ -53,9 +51,8 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
         w={144}
         position="right"
         spacing={12}
-        style={{ fontFamily: 'Inter', fontWeight: '400', fontSize: '16px' }}
       >
-        <Text>{formattedDate}</Text>
+        <Text fw={400} size={16}>{formattedDate}</Text>
       </Group>
     </Group>
   );

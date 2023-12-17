@@ -10,16 +10,16 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
   <SimpleGrid cols={2}>
     {children}
     <Stack
-      sx={{
-        width: '656px',
-        height: '896px',
-        background: '#F4F4F4',
-        border: '1px none rgb(189, 189, 189)',
-        borderRadius: '12px',
-      }}
+      w={656}
+      h={896}
+      bg="#F4F4F4"
       mt="32px"
       mx="auto"
       mb="32px"
+      sx={{
+        border: '1px none rgb(189, 189, 189)',
+        borderRadius: '12px',
+      }}
     >
       <Group spacing={10} mt={40} ml={40}>
         <Avatar>

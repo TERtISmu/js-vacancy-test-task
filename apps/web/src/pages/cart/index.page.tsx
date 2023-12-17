@@ -27,7 +27,6 @@ const YourProducts: NextPage = () => {
             <Button
               onClick={() => setShowProducts('My cart')}
               style={{
-                fontFamily: 'Inter',
                 fontSize: '20px',
                 fontWeight: '600',
                 padding: '0',
@@ -40,7 +39,6 @@ const YourProducts: NextPage = () => {
             <Button
               onClick={() => setShowProducts('History')}
               style={{
-                fontFamily: 'Inter',
                 fontSize: '20px',
                 fontWeight: '600',
                 padding: '0',

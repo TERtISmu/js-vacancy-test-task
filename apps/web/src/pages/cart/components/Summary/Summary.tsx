@@ -30,34 +30,25 @@ const Summary: FC<SummaryProps> = ({ totalPrice }) => {
       }}
     >
       <Title
-        style={{
-          color: '#201F22',
-          fontFamily: 'Inter',
-          fontSize: '20px',
-          fontWeight: '700',
-        }}
+        size={20}
+        fw={700}
+        c="#201F22"
       >
         Summary
       </Title>
       <Divider />
       <Group position="apart">
         <Text
-          style={{
-            color: '#767676',
-            fontFamily: 'Inter',
-            fontSize: '16px',
-            fontWeight: '400',
-          }}
+          size={16}
+          fw={400}
+          c="#767676"
         >
           Total price
         </Text>
         <Text
-          style={{
-            color: '#201F22',
-            fontFamily: 'Inter',
-            fontSize: '16px',
-            fontWeight: '700',
-          }}
+          size={16}
+          fw={700}
+          c="#201F22"
         >
           $
           {totalPrice}
@@ -75,9 +66,9 @@ const Summary: FC<SummaryProps> = ({ totalPrice }) => {
         color="#2B77EB"
       >
         <Text
+          size={14}
           fw={500}
-          c="white"
-          style={{ fontSize: '14px', fontFamily: 'Inter' }}
+          c="#FFFFFF"
         >
           Proceed to Ckeckout
         </Text>

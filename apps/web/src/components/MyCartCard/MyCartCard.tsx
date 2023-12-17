@@ -56,12 +56,9 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
           }}
         />
         <Text
-          style={{
-            color: '#201F22',
-            fontSize: '16px',
-            fontFamily: 'Inter',
-            fontWeight: '700',
-          }}
+          size={16}
+          fw={700}
+          color="#201F22"
         >
           {title}
         </Text>
@@ -85,12 +82,9 @@ const MyCartCard: FC<ProductCardProps> = ({ productInfo }) => {
             <CrossRemoveIcon />
           </ActionIcon>
           <Text
-            style={{
-              color: '#767676',
-              fontSize: '16px',
-              fontFamily: 'Inter',
-              fontWeight: '400',
-            }}
+            size={16}
+            fw={400}
+            color="#767676"
           >
             Remove
           </Text>

@@ -11,23 +11,17 @@ const NothingHereYet: FC = () => {
     <Stack w={301} h={374} ml={500} spacing={20} align="center">
       <BalloonIcon />
       <Text
-        style={{
-          color: '#201F22',
-          fontSize: '20px',
-          fontFamily: 'Inter',
-          fontWeight: '700',
-        }}
+        size={20}
+        fw={700}
+        c="#201F22"
       >
         Oops, there&apos;s nothing here yet!
       </Text>
       <Text
-        style={{
-          color: '#767676',
-          fontSize: '14px',
-          fontFamily: 'Inter',
-          fontWeight: '400',
-          textAlign: 'center',
-        }}
+        size={14}
+        fw={400}
+        c="#767676"
+        ta="center"
       >
         You haven&apos;t madex any purchases yet.
         <br />
@@ -49,10 +43,7 @@ const NothingHereYet: FC = () => {
         <Text
           fw={500}
           c="white"
-          style={{
-            fontSize: '14px',
-            fontFamily: 'Inter',
-          }}
+          size={14}
         >
           Go to Marketplace
         </Text>

@@ -29,19 +29,19 @@ const Header: FC = () => {
   const cartNumber = isSuccess && data?.productsInCart.length;
 
   return (
-    <LayoutHeader height="104px" ff="Inter" withBorder={false} bg="#FCFCFC">
+    <LayoutHeader height="104px" withBorder={false} bg="#FCFCFC">
       <Group
         w={1345}
         mt={32}
         mb={32}
         mx="auto"
-        style={{ justifyContent: 'space-between' }}
+        position="apart"
       >
         <Group spacing={6}>
           <Avatar>
             <ShopyIcon />
           </Avatar>
-          <Title order={2} ff="Inter" style={{ fontSize: '29px' }}>
+          <Title order={2} size={29}>
             Shopy
           </Title>
         </Group>
@@ -51,7 +51,6 @@ const Header: FC = () => {
               href={link.href}
               key={link.label}
               style={{
-                fontFamily: 'Inter',
                 fontSize: '16px',
                 fontWeight: '500',
                 lineHeight: '32px',
@@ -75,7 +74,6 @@ const Header: FC = () => {
             size={20}
             styles={() => ({
               indicator: {
-                fontFamily: 'Inter',
                 fontSize: '14px',
                 fontWeight: 500,
                 lineHeight: '23px',

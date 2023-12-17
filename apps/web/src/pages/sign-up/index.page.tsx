@@ -81,8 +81,8 @@ const SignUp: NextPage = () => {
       <Head>
         <title>Sign Up</title>
       </Head>
-      <Group mx="auto" mt="300px" sx={{ height: '360px' }}>
-        <Stack sx={{ width: '408px' }} spacing={20}>
+      <Group mx="auto" mt={300} h={360}>
+        <Stack w={408} spacing={20}>
           <Stack spacing={34}>
             <Title order={1}>Sign Up</Title>
             <form onSubmit={handleSubmit(onSubmit)}>

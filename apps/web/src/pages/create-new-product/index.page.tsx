@@ -143,7 +143,7 @@ const CreateNewProduct: NextPage = () => {
       </Head>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack w={694} ml={96} spacing={20}>
-          <Title c="#201F22" ff="Inter" fw={600} size="20px">
+          <Title c="#201F22" fw={600} size="20px">
             Create new product
           </Title>
           <Group spacing={16}>
@@ -175,7 +175,6 @@ const CreateNewProduct: NextPage = () => {
               variant="default"
               p="4px 20px"
               c="#767676"
-              ff="Inter"
               style={{
                 border: '1px #CFCFCF solid',
                 borderRadius: '8px',
@@ -199,13 +198,11 @@ const CreateNewProduct: NextPage = () => {
             styles={() => ({
               label: {
                 fontSize: '16px',
-                fontFamily: 'Inter',
                 marginBottom: '11px',
               },
               input: {
                 height: '40px',
                 padding: '0 14px',
-                fontFamily: 'Inter',
                 fontSize: '16px',
               },
             })}
@@ -221,13 +218,11 @@ const CreateNewProduct: NextPage = () => {
             styles={() => ({
               label: {
                 fontSize: '16px',
-                fontFamily: 'Inter',
                 marginBottom: '11px',
               },
               input: {
                 height: '40px',
                 padding: '0 14px',
-                fontFamily: 'Inter',
                 fontSize: '16px',
               },
             })}
@@ -239,20 +234,17 @@ const CreateNewProduct: NextPage = () => {
             ml="auto"
             fw={400}
             h={40}
-            style={{
-              borderRadius: '8px',
-            }}
             color="#2B77EB"
             p="4px 20px"
             w={145}
+            style={{
+              borderRadius: '8px',
+            }}
           >
             <Text
+              size={14}
               fw={500}
-              c="white"
-              style={{
-                fontSize: '14px',
-                fontFamily: 'Inter',
-              }}
+              c="#FFFFFF"
             >
               Upload Product
             </Text>

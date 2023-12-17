@@ -38,8 +38,8 @@ const YourProducts: NextPage = () => {
         >
           <Text
             fw={500}
-            c="white"
-            style={{ fontSize: '14px', fontFamily: 'Inter' }}
+            c="#FFFFFF"
+            size={14}
           >
             Back to Cart
           </Text>
