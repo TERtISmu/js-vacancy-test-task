@@ -1,6 +1,8 @@
 import { Button, Divider, Group, Stack, Text, Title } from '@mantine/core';
 import { FC } from 'react';
+import { useRouter } from 'next/router';
 import { cartApi } from 'resources/cart';
+import { RoutePath } from 'routes';
 
 interface SummaryProps {
   totalPrice: number | undefined;
@@ -9,9 +11,11 @@ interface SummaryProps {
 const Summary: FC<SummaryProps> = ({ totalPrice }) => {
   const { mutate: buy } = cartApi.useBuy();
 
+  const router = useRouter();
+
   const handlerBuy = async () => {
     buy();
-    window.location.reload();
+    router.push(RoutePath.PaymentSuccessfus);
   };
 
   return (
