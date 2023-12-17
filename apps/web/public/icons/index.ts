@@ -16,3 +16,6 @@ export { default as CrossRemoveIcon } from './cross-remove.svg';
 export { default as BalloonIcon } from './balloon.svg';
 export { default as CheckCircleIcon } from './check-circle.svg';
 export { default as PartyPopperIcon } from './party-popper.svg';
+export { default as ShopIcon } from './shop.svg';
+export { default as LeftItemCardIcon } from './left-item-card.svg';
+export { default as RightItemCardIcon } from './right-item-card.svg';

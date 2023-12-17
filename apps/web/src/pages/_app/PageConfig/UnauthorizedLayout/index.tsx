@@ -1,5 +1,5 @@
 import { Avatar, Group, SimpleGrid, Stack, Title, Text } from '@mantine/core';
-import { ShopyIcon } from 'public/icons';
+import { LeftItemCardIcon, RightItemCardIcon, ShopIcon, ShopyIcon } from 'public/icons';
 import { FC, ReactElement } from 'react';
 
 interface UnauthorizedLayoutProps {
@@ -27,7 +27,12 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
         </Avatar>
         <Title order={2}>Shopy</Title>
       </Group>
-      <Stack w={460} ml={32} spacing={12} mt={570}>
+      <Group position="center" noWrap mt={160} style={{ position: 'relative' }}>
+        <LeftItemCardIcon style={{ position: 'absolute', left: '22px', bottom: '178px' }} />
+        <ShopIcon w={448} h={298} style={{ zIndex: '1' }} />
+        <RightItemCardIcon style={{ position: 'absolute', right: '20px', bottom: '178px' }} />
+      </Group>
+      <Stack w={460} ml={32} spacing={12} mt={-150}>
         <Title order={1}>Sell and buy products super quickly!</Title>
         <Text size={20} fw={400} c="#201F22">
           Save your time, we take care of all the processing.
