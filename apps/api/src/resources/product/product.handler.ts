@@ -1,7 +1,6 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
 import logger from 'logger';
-import ioEmitter from 'io-emitter';
 import { DATABASE_DOCUMENTS } from 'app.constants';
 
 import { Product } from './product.types';
@@ -9,16 +8,6 @@ import { productService } from './index';
 import { ProductType } from './product.types';
 
 const { PRODUCTS } = DATABASE_DOCUMENTS;
-
-eventBus.on(`${PRODUCTS}.updated`, (data: InMemoryEvent<Product>) => {
-  try {
-    const product = data.doc;
-
-    ioEmitter.publishToUser(product._id, 'user:updated', product);
-  } catch (err) {
-    logger.error(`${PRODUCTS}.updated handler error: ${err}`);
-  }
-});
 
 eventBus.onUpdated(
   PRODUCTS,
