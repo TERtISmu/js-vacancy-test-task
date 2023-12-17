@@ -20,7 +20,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   if (isAlreadyInCart) {
     updatedCart.forEach((prod) => {
-      if (prod.id === product._id) {
+      if (prod.id === product._id && product.quantity > prod.quantityInCart) {
         prod.quantityInCart += 1;
       }
     });
