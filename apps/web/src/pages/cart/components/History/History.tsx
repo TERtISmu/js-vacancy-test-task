@@ -7,7 +7,7 @@ const ProductCard: FC = () => {
   const { data } = cartApi.useHistoryList();
 
   return (
-    <Stack spacing={12}>
+    <Stack spacing={12} w={807}>
       <Group spacing={0} style={{ padding: '12px 0' }}>
         <Text
           w={519}
