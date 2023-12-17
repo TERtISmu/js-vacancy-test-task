@@ -27,7 +27,7 @@ const YourProducts: NextPage = () => {
         <Title c="#201F22" fw={600} size="20px">
           Your Products
         </Title>
-        <SimpleGrid w={1144} cols={4} spacing={20} verticalSpacing={20}>
+        <SimpleGrid w={1144} cols={4} spacing={20} verticalSpacing={20} mb={20}>
           <UnstyledButton
             style={{ borderRadius: '12px', border: '1px solid #ECECEE' }}
           >

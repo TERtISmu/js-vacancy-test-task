@@ -21,8 +21,8 @@ const YourProducts: NextPage = () => {
       <Head>
         <title>Cart</title>
       </Head>
-      <Group w={1345} m="auto" spacing={44} align="flex-start">
-        <Stack w={951} mt={0} spacing={20}>
+      <Group w={1345} m="auto" spacing={44} align="flex-start" mb={10}>
+        <Stack w={951} spacing={20}>
           <Group>
             <Button
               onClick={() => setShowProducts('My cart')}
