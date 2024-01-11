@@ -44,6 +44,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     console.log('inc');
     updatedCart.forEach((prod) => {
       if (
+        productInDB?.quantity != undefined &&
         prod.id === productId &&
         prod.quantityInCart + 1 <= productInDB?.quantity
       ) {
