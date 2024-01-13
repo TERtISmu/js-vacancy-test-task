@@ -27,8 +27,8 @@ const schema = z.object({
   MESSAGING_SENDER_ID: z.string().optional(),
   APP_ID: z.string().optional(),
   MEASUREMENT_ID: z.string().optional(),
-  FIREBASE_USER: z.string(),
-  FIREBASE_AUTH: z.string(),
+  FIREBASE_USER: z.string().optional(),
+  FIREBASE_AUTH: z.string().optional(),
 });
 
 type Config = z.infer<typeof schema>;
