@@ -20,7 +20,7 @@ export const setTokenCookies = ({
 
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
-    sameSite: 'none',
+    // sameSite: 'none',
     // domain: cookiesDomain,
     // domain: '.onrender.com',
     domain: 'tertismu-shopy.sbs',
