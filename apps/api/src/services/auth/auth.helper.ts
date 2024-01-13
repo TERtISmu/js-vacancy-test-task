@@ -20,7 +20,6 @@ export const setTokenCookies = ({
 
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
-    secure: true,
     sameSite: 'none',
     // domain: cookiesDomain,
     domain: '.onrender.com',
