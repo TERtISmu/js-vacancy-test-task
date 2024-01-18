@@ -2,6 +2,8 @@
 
 ### deployment: https://www.tertismu-shopy.sbs/
 
+**Please wait for at least 5 minutes!!**
+
 The project is currently hosted on a free hosting service, therefore, a brief waiting period may be necessary.
 
 #### Note!!
